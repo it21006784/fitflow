@@ -1,0 +1,214 @@
+.media-list-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Style for the media card */
+/* Style for the media card */
+.media-card {
+    margin: 75px auto; /* Adjust margin to center horizontally */
+    padding: 10px;
+    border: 2px solid #d7d3d3;
+    border-radius: 10px;
+    width: 300px;
+    background-color: #ffffff; /* Set background color to white */
+    margin-left: 50px; /* Move the card slightly to the right */
+    
+    
+  }
+  
+  .media-card {
+    margin: 20px auto; /* Center the card */
+    padding: 20px;
+    border: 2px solid #e1e1e1;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    background-color: #ffffff; /* Set background color to white */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Add shadow */
+}
+.media-description {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.media-images {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.media-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.media-videos {
+    margin-top: 10px;
+}
+
+.media-video {
+    width: 100%;
+    margin-bottom: 10px;
+}
+/* Style for delete button */
+.delete-button {
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  
+  .delete-button:hover {
+    background-color: #cc0000;
+  }
+  
+  /* Style for delete confirmation message */
+  .delete-confirmation {
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 20px;
+    margin-top: 10px;
+  }
+  
+  .delete-confirmation p {
+    margin-bottom: 10px;
+  }
+  
+  .delete-confirmation button {
+    background-color: #ff4d4d;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .delete-confirmation button:hover {
+    background-color: #cc0000;
+  }
+
+  .displayFit {
+    background-image: url('../Images/displayBG.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  /* Style for the navbar */
+.item_nav_bar {
+    display: flex;
+    color: white;
+    padding: 10px 20px; /* Adjust padding for better spacing */
+    background-color: #354f52;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0; /* Align to the top left corner */
+    width: 100%;
+    z-index: 1000;
+  }
+  /* Style for the media card */
+
+
+/* Style for media actions */
+.media-actions {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* Style for action buttons */
+.action-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+/* Like button */
+.like-button {
+    color: #262626;
+}
+
+/* Comment button */
+.comment-button {
+    color: #262626;
+}
+
+/* Share button */
+.share-button {
+    color: #262626;
+}
+.media-list-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.media-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.media-description {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.media-carousel {
+    margin-top: 20px;
+}
+
+.media-image {
+    max-width: 100%;
+    height: auto;
+}
+
+.media-video {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+.media-actions {
+    margin-top: 10px;
+}
+
+.action-button {
+    margin-right: 10px;
+}
+
+.delete-button {
+    margin-top: 10px;
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-confirmation {
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.delete-confirmation button {
+    margin-right: 10px;
+}

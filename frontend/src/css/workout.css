@@ -1,0 +1,206 @@
+/* Hide scrollbar track */
+::-webkit-scrollbar {
+    width: 8px; /* Width of the scrollbar */
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #ffffff; /* Change the background color to green */
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #4c023d; /* Color of the scrollbar handle */
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #4c023d; /* Color of the scrollbar handle on hover */
+  }
+  
+  .displayFit {
+      /* background-image: url('../Images/displayBG.jpg');  */
+      background-size: cover;
+      background-repeat: no-repeat; 
+      background-position: center; 
+      /* background-color: rgba(0, 0, 0, 0.6);  */
+  }
+  
+  
+  .table_details_admin {
+    margin-top: 3px;
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+   
+  }
+  
+  .table_details_admin .admin_tbl_th,
+  .table_details_admin .admin_tbl_td {
+    border: 2px solid #884766; 
+    padding: 8px; 
+    color: #ffffff;
+  }
+  
+  .table_details_admin .admin_tbl_th {
+    background-color: #2659;
+    color: white;
+    font-size: 14px;
+  }
+  
+  .table_main {
+    padding: 20px 10%; 
+   
+  }
+  
+  
+  .bk_home_img {
+    background-image: url('../Images/fit-bg.jpg'); /* Adjust the path to your image file */
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+  
+  /* my */
+  
+  .content {
+    margin-left: 320px; /* Adjusted margin */
+    margin-right: 320px; /* Adjusted margin */
+    padding: 20px;
+    text-align: left;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+  }
+  
+  .card {
+    background-image: url(../Images/cardBG.jpg);
+    background-size: cover; /* Adjusts the background image to cover the entire container */
+    margin-bottom: 15px;
+    width: 600px; /* Adjust the width */
+    height: 300px; /* Adjust the height as needed */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    position: relative; /* Make the card position relative */
+  }
+  
+  
+  .card-content {
+    padding: 20px;
+    background-size: cover;
+  }
+  
+  .username {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .description {
+    margin-top: 10px; /* Add margin to separate from the card */
+    margin-bottom: 10px;
+  }
+  
+  .workout-details p {
+    margin: 5px 0;
+  }
+  
+  .workout-details {
+   
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-bottom: 10px;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .like-comment,
+  .edit-btn {
+    position: relative;
+    margin-bottom: 20px;
+  }
+  
+  .like-comment button,
+  .edit-btn {
+    margin-right: 10px;
+    border: none;
+    background: none; 
+    padding: 0; 
+    cursor: pointer;
+    font-size: 20px; 
+    color: #884766; 
+  }
+  
+  .like-comment button:focus,
+  .edit-btn:focus {
+    outline: none; 
+  }
+  
+  
+  
+  .right-section {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    background-color: #884766;
+    overflow-x: hidden;
+    padding-top: 20px;
+    z-index: 3;
+    height: 100vh; /* Set height to 100% of viewport height */
+    margin-left: calc(100% - 320px); /* Adjusted margin */
+  }
+  
+  .buttons {
+    margin-top: 10px;
+  }
+  
+  .buttons button {
+    margin-right: 10px;
+  }
+  
+  
+  .update_btn {
+    padding: 10px 20px; /* Adjust padding */
+    margin-right: 10px; /* Adjust margin */
+    font-size: 18px; /* Increase font size */
+    background-color: #4caf50; /* Green background */
+    color: white; /* White text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .update_btn:hover {
+    background-color: #45a049; /* Darker green background on hover */
+  }
+  
+  
+  .delete_btn {
+    padding: 10px 20px; /* Adjust padding */
+    margin-right: 10px; /* Adjust margin */
+    font-size: 18px; /* Increase font size */
+    background-color: #f44336; /* Red background */
+    color: white; /* White text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .delete_btn:hover {
+    background-color: #d32f2f; /* Darker red background on hover */
+  }
+  
+  

@@ -1,0 +1,32 @@
+
+.status-page-wrapper {
+    background-color: #dce1ed; 
+    height: 720px;
+    margin-top: -21px;
+}
+
+.status-post-card {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 400px; /* adjust width as needed */
+    height: 500px; /* allow height to expand based on content */
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.status-post-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.status-post-details p {
+    font-size: 18px;
+    margin-bottom: 10px;
+    margin-top: 40px;
+}
+
+.status-post-details strong {
+    margin-right: 10px;
+}

@@ -1,0 +1,14 @@
+.shaded-card {
+    background-color: #f8f9fa; /* Add desired shade color */
+    border-radius: 10px; /* Add desired border radius */
+    padding: 15px; /* Add padding for better visual */
+}
+
+.card-title {
+    font-size: 1.5rem; /* Adjust title font size */
+}
+
+hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
