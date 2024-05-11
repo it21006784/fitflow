@@ -13,7 +13,7 @@ function NavBar() {
     let route;
     switch (tab) {
       case "Posts":
-        route = "/";
+        route = "/MediaList";
         break;
       case "Workout Status":
         route = "/ViewAllStatus";

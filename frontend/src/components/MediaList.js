@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import NavBar from '../NavBar'; // Import the NavBar component
+import Sidebar from "../components/SideBar";
+import NavBar from "../components/NavBar";
 import { Carousel } from 'react-responsive-carousel'; // Import Carousel component
 import 'react-responsive-carousel/lib/styles/carousel.min.css'; // Import Carousel styles
 import '../css/MediaList.css'; // Import CSS file for styling
+import RightSection from "../components/RightSection";
 
 const MediaList = () => {
     const [mediaList, setMediaList] = useState([]);
@@ -56,10 +58,10 @@ const MediaList = () => {
     };
 
     return (
-        <div className='displayFit'>
-            {/* <NavBar /> Include the NavBar component */}
+        <><div className='displayFit'>
+            <NavBar /> Include the NavBar component
             <div className="media-list-container">
-                <h2>Media List</h2>
+                <Sidebar />
                 {mediaList.map(media => (
                     <div key={media.id} className="media-card">
                         <h3 className="media-description">{media.description}</h3>
@@ -92,7 +94,7 @@ const MediaList = () => {
                     </div>
                 ))}
             </div>
-        </div>
+        </div><RightSection /></>
     );
 };
 
