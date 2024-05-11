@@ -16,6 +16,8 @@ import AddMedia from './components/AddMedia';
 import MediaList from './components/MediaList';
 import ViewOneMedia from './components/ViewOneMedia';
 
+import ViewAllWorkouts from './components/ViewAllWorkouts';
+
 function App() {
   return (
     <Router>
@@ -36,6 +38,8 @@ function App() {
         <Route path="/AddMedia" exact element={<AddMedia/>}/>
         <Route path="/MediaList" exact element={<MediaList/>}/>
         <Route path="/ViewOneMedia/:mediaId" exact element={<ViewOneMedia/>}/>
+
+        <Route path="/ViewAllWorkouts" exact element={<ViewAllWorkouts/>}/>
 
         </Routes>
       </div>
