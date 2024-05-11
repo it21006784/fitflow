@@ -94,17 +94,6 @@
     background-color: #cc0000;
   }
 
-  .displayFit {
-    background-image: url('../Images/displayBG.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-  }
-
   /* Style for the navbar */
 .item_nav_bar {
     display: flex;
