@@ -20,6 +20,8 @@ import Addmealplan from './components/Addmealplan';
 import ViewMealPlan from './components/Viewmealplan';
 import UpdateMealPlan from './components/Updatemealplan';
 
+import ViewAllWorkouts from './components/ViewAllWorkouts';
+
 function App() {
   return (
     <Router>
@@ -44,6 +46,8 @@ function App() {
         <Route path="/Addmealplan" exact element={<Addmealplan/>}/>
         <Route path="/Viewmealplan" exact element={<ViewMealPlan/>}/>
         <Route path="/Updatemealplan/:mealplanId" exact element={<UpdateMealPlan/>}/>
+
+        <Route path="/ViewAllWorkouts" exact element={<ViewAllWorkouts/>}/>
 
         </Routes>
       </div>
