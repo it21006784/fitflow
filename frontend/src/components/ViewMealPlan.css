@@ -1,0 +1,41 @@
+.view-meal-plan-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+}
+
+select {
+    margin-right: 10px;
+    padding: 5px;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.error-message {
+    color: red;
+}
+
+.meal-plan-list {
+    display: grid;
+    grid-gap: 20px;
+}
+
+.meal-plan-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}

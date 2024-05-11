@@ -16,6 +16,10 @@ import AddMedia from './components/AddMedia';
 import MediaList from './components/MediaList';
 import ViewOneMedia from './components/ViewOneMedia';
 
+import Addmealplan from './components/Addmealplan';
+import ViewMealPlan from './components/Viewmealplan';
+import UpdateMealPlan from './components/Updatemealplan';
+
 function App() {
   return (
     <Router>
@@ -36,6 +40,10 @@ function App() {
         <Route path="/AddMedia" exact element={<AddMedia/>}/>
         <Route path="/MediaList" exact element={<MediaList/>}/>
         <Route path="/ViewOneMedia/:mediaId" exact element={<ViewOneMedia/>}/>
+
+        <Route path="/Addmealplan" exact element={<Addmealplan/>}/>
+        <Route path="/Viewmealplan" exact element={<ViewMealPlan/>}/>
+        <Route path="/Updatemealplan/:mealplanId" exact element={<UpdateMealPlan/>}/>
 
         </Routes>
       </div>
