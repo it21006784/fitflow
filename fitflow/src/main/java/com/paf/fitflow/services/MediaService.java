@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MediaService {
@@ -59,6 +60,17 @@ public class MediaService {
         } else {
             return false;
         }
+    }
+
+    public boolean updateMediaDescription(String mediaId, String newDescription) {
+        Optional<Media> optionalMedia = mediaRepository.findById(mediaId);
+        if (optionalMedia.isPresent()) {
+            Media media = optionalMedia.get();
+            media.setDescription(newDescription);
+            mediaRepository.save(media);
+            return true;
+        }
+        return false;
     }
 
 }
