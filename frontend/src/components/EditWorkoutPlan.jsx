@@ -1,64 +1,127 @@
 import React, { useState, useEffect } from "react";
+import Sidebar from "../components/SideBar";
+import RightSection from "../components/RightSection";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import "../css/ViewAllWorkouts.css";
+import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditWorkoutPlan() {
-    const [workout, setWorkout] = useState({});
-    const [error, setError] = useState(null);
+    const navigate = useNavigate();
     const { id } = useParams();
+    const [error, setError] = useState(null);
+
+    const [workoutPlan, setWorkoutPlan] = useState({
+        w_name: "",
+        description: "",
+        timeDuration: ""
+    });
 
     useEffect(() => {
-        // Fetch the current workout by its ID
-        axios.get(`http://localhost:8081/api/workout/${id}`)
-            .then(response => {
-                setWorkout(response.data);
-            })
-            .catch(error => {
-                setError(error);
-            });
-    }, [id]);
+        fetchWorkoutPlan();
+    }, []);
 
-    const handleChange = e => {
-        const { name, value } = e.target;
-        setWorkout(prevWorkout => ({
-            ...prevWorkout,
-            [name]: value
-        }));
+    const fetchWorkoutPlan = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8081/api/workout/${id}`);
+            setWorkoutPlan(response.data || {
+                w_name: "",
+                description: "",
+                timeDuration: ""
+            });
+        } catch (error) {
+            console.error("Error fetching workout plan:", error);
+            setError(error);
+        }
     };
 
-    const handleSubmit = e => {
+    const onInputChange = (e) => {
+        setWorkoutPlan({ ...workoutPlan, [e.target.name]: e.target.value });
+    };
+
+    const onSubmit = async (e) => {
         e.preventDefault();
-        // Send a PUT request to update the status
-        axios.put(`http://localhost:8081/api/workout/${id}`, workout)
-            .then(response => {
-                console.log("Status updated successfully:", response.data);
-            })
-            .catch(error => {
-                setError(error);
-            });
+        try {
+            await axios.put(`http://localhost:8081/api/workout/${id}`, workoutPlan);
+            alert("Workout plan updated successfully");
+            navigate("/ViewAllWorkouts");
+        } catch (error) {
+            console.error("Error updating workout plan:", error);
+            alert("An error occurred while updating the workout plan.");
+        }
+    };
+
+    const onDelete = async () => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this workout plan?");
+        if (confirmDelete) {
+            try {
+                await axios.delete(`http://localhost:8081/api/workout/${id}`);
+            } catch (error) {
+                console.error("Error deleting workout plan:", error);
+                alert("An error occurred while deleting the workout plan.");
+            }
+            alert("Workout plan deleted successfully");
+            navigate("/ViewAllWorkouts");
+            
+        }
     };
 
     if (error) return <div className="alert alert-danger">Error: {error.message}</div>;
 
     return (
-        <div className="container mt-4">
-            <h3>Update Workout Plans</h3>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label htmlFor="date">Workout Name:</label>
-                    <input type="text" className="form-control" id="w_name" name="w_name" value={workout.w_name || ''} onChange={handleChange} />
+        <div className="container">
+            <Sidebar />
+            <div className="form_box">
+                <div>
+                    <h1 className="topic">
+                        Update <span className="topicsub">Workout Plan</span>
+                    </h1>
+
+                    <form onSubmit={onSubmit} className="form_full">
+                        <br />
+                        <label className="form_label" htmlFor="w_name">
+                            Workout Plan Name:
+                        </label>
+                        <br />
+                        <input
+                            onChange={onInputChange}
+                            type="text"
+                            className="form_input"
+                            value={workoutPlan.w_name}
+                            name="w_name"
+                            placeholder="Enter workout plan name"
+                        />
+                        <br />
+                        <label className="form_label" htmlFor="description">
+                            Description:
+                        </label>
+                        <br />
+                        <textarea
+                            className="form_input"
+                            value={workoutPlan.description}
+                            onChange={onInputChange}
+                            name="description"
+                            placeholder="Enter workout plan description"
+                        ></textarea>
+                        <br />
+                        <label className="form_label" htmlFor="timeDuration">
+                            Time Duration:
+                        </label>
+                        <br />
+                        <input
+                            onChange={onInputChange}
+                            type="text"
+                            className="form_input"
+                            value={workoutPlan.timeDuration}
+                            name="timeDuration"
+                            placeholder="Enter workout plan time duration"
+                        />
+                        <br />
+                        <button type="submit" className="update_btn">Update</button>
+                        <button type="button" className="delete_btn" onClick={onDelete}>Delete</button>
+                    </form>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="description">Workout Description:</label>
-                    <input type="text" className="form-control" id="description" name="description" value={workout.description || ''} onChange={handleChange} />
-                </div>
-                <div className="form-group">
-                    <label htmlFor="distanceRun">Time Duration:</label>
-                    <input type="text" className="form-control" id="timeDuration" name="timeDuration" value={workout.timeDuration || ''} onChange={handleChange} />
-                </div>
-            
-                <button type="submit" className="btn btn-primary">Update</button>
-            </form>
+            </div>
+            <RightSection />
         </div>
     );
 }

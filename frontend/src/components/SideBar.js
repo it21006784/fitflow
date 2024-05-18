@@ -32,7 +32,7 @@ function SideBar() {
     { name: "Home", icon: <FaHome />, path: "/" },
     { name: "Post Upload", icon: <FaUpload />, path: "/AddMedia" },
     { name: "Workout Status Upload", icon: <FaRunning />, path: "/AddCurrentWorkoutStatus" },
-    { name: "Workout Plan Upload" , icon: <FaDumbbell />, path: "/" },
+    { name: "Workout Plan Upload" , icon: <FaDumbbell />, path: "/AddWorkoutPlans" },
     { name: "Meal Plan Upload", icon: <FaUtensils />, path: "/" }
   ];
 

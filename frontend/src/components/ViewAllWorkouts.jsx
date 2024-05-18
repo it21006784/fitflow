@@ -8,7 +8,7 @@ import { useParams, Link } from "react-router-dom";
 
 export default function ViewAllWorkouts() {
     const [workouts, setWorkouts] = useState([]);
-    const [error, setError] = useState();
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         axios.get(`http://localhost:8081/api/workout`)
@@ -26,57 +26,50 @@ export default function ViewAllWorkouts() {
             axios.delete(`http://localhost:8081/api/workout/${w_id}`)
                 .then(response => {
                     console.log('Deleted workout with ID:', w_id);
-                    // Handle success
+                    // Update the workouts state to remove the deleted workout
+                    setWorkouts(workouts.filter(workout => workout.id !== w_id));
                 })
                 .catch(error => {
                     console.error('Error deleting workout:', error);
                     // Handle error
                 });
+
+
         }
-        window.location.href = "/";
     };
 
     if (error) return <div className="alert alert-danger">Error: {error.message}</div>;
 
     return (
         <div>
-          {/* <UserCheck userId={localStorage.getItem("userId")} /> */}
-    
-          <NavBar />
-          <div className="container">
-            <Sidebar />
-            <div className="content">
-              {workouts.map((workout) => (
-                <div key={workout.id} className="card-container">
-                  {/* Username */}
-                  {/* <p className="username">{workout.w_name}</p> */}
-                  {/* Description */}
-                  <p className="username">{workout.w_name}</p>
-                  {/* Card */}
-                  
-                  <div className="card"> {/* style={{ backgroundImage: `url(${workout.selectedImage})` }}*/}
-                    <div className="card-content">
-                      {/* Workout details */}
-                      <div className="workout-details-container">
-                        <p>{workout.date}</p>
-                        <div className="workout-details">
-                          <p>Distance Ran: {workout.distanceRun}</p>
-                          <p>No of Pushups: {workout.noOfPushups}</p>
-                          <p>Weight Lifted:{workout.weightLifted}</p>
+            <NavBar />
+            <div className="container">
+                <Sidebar />
+                <div className="content">
+                    {workouts.map((workout) => (
+                        <div key={workout.id} className="card-container">
+                            <p className="username">{workout.u_name}</p>
+                            <div className="card">
+                                <div className="card-content">
+                                    <div className="workout-details-container">
+                                        <p className="workout-name">{workout.w_name}</p>
+                                        <div className="workout-details">
+                                            <p>Description: {workout.description}</p>
+                                            <p>Time Duration: {workout.timeDuration}</p>
+                                            <p>Likes: {workout.likes}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="like-comment">
+                                <button className="like-btn"><FaHeart /></button>
+                                <button className="comment-btn"><FaComment /></button>
+                                <Link to={`/EditWorkoutPlan/${workout.id}`} className="edit-btn"><FaEdit /></Link>
+                            </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Like and comment buttons */}
-                  <div className="like-comment">
-                    <button className="like-btn"><FaHeart /></button>
-                    <button className="comment-btn"><FaComment /></button>
-                    <Link to={`/UpdateStatus/${workout.statusId}`} className="edit-btn"><FaEdit /></Link>
-                  </div>
+                    ))}
                 </div>
-              ))}
             </div>
-          </div>
         </div>
-      );
+    );
 }

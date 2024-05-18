@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.paf.fitflow.models.Comment;
 import com.paf.fitflow.models.Workout;
 import com.paf.fitflow.services.WorkoutPlanService;
 
@@ -41,21 +42,31 @@ public class WorkoutPlanController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Workout createWorkoutStatus(@RequestBody Workout workout){
+    public Workout createWorkoutPlans(@RequestBody Workout workout){
         return workoutPlanService.addWorkoutPlan(workout);
     }
 
     @PutMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Workout updateWorkoutStatus(@RequestBody Workout workout){
-        return workoutPlanService.updateWorkoutPlan(workout);
+    public Workout updateWorkoutPlans(@RequestBody Workout workout, String w_id ){
+        return workoutPlanService.updateWorkoutPlan(workout,w_id);
     }
 
     @DeleteMapping("/{w_id}")
-    public String deleteWorkoutStatus(@PathVariable String w_id){
+    public String deleteWorkoutPlans(@PathVariable String w_id){
         return workoutPlanService.deleteWorkoutPlan(w_id);
     }
 
+    @PostMapping("/{w_id}/like")
+    public Workout likeWorkout(@PathVariable String w_id){
+        // Like the workout status post
+        return workoutPlanService.likeWorkout(w_id);
+    }
 
+    @PostMapping("/{w_id}/comment")
+    public Workout addCommentToWorkoutPlans(@PathVariable String w_id, @RequestBody Comment comment){
+        // Add comment to the workout status post
+        return workoutPlanService.addCommentToWorkoutPlan(w_id, comment);
+    }  
     
 }

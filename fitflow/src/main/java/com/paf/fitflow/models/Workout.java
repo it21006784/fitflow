@@ -1,5 +1,8 @@
 package com.paf.fitflow.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -14,15 +17,31 @@ import lombok.NoArgsConstructor;
 public class Workout {
     @Id
     private String w_id;
+    private String u_id;
+    private String u_name;
     private String w_name; 
     private int likes;
     private String description;
+    private String timeDuration;
+    private List<Comment> comments = new ArrayList<>();
 
     public String getId() {
         return w_id;
     }
     public void setId(String w_id) {
         this.w_id = w_id;
+    }
+    public String getU_id() {
+        return u_id;
+    }
+    public void setU_id(String u_id) {
+        this.u_id = u_id;
+    }
+    public String getUname() {
+        return u_name;
+    }
+    public void setUname(String u_name) {
+        this.u_name = u_name;
     }
     public String getW_name() {
         return w_name;
@@ -42,11 +61,17 @@ public class Workout {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    @Override
-    public String toString() {
-        return "Workout [ w_name=" + w_name + ", likes=" + likes + ", description=" + description
-                + "]";
+    public String getTimeDuration() {
+        return timeDuration;
     }
-    
+    public void setTimeDuration(String timeDuration) {
+        this.timeDuration = timeDuration;
+    }
+    public List<Comment> getComment() {
+        return comments;
+    }
+    public void setComments(Comment comment) {
+        comments.add(comment);
+    }
 }
+

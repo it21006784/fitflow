@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router,Route, Routes} from "react-router-dom";
 
@@ -21,6 +20,8 @@ import ViewMealPlan from './components/Viewmealplan';
 import UpdateMealPlan from './components/Updatemealplan';
 
 import ViewAllWorkouts from './components/ViewAllWorkouts';
+import AddWorkoutPlans from './components/AddWorkoutPlans';
+import EditWorkoutPlan from './components/EditWorkoutPlan';
 
 function App() {
   return (
@@ -39,6 +40,10 @@ function App() {
         <Route path="/Register" exact element={<Register/>}/>
         <Route path="/UserProfile/:userId" exact element={<UserProfile/>}/>
 
+        <Route path="/ViewAllWorkouts" exact element={<ViewAllWorkouts/>}/>
+        <Route path="/AddWorkoutPlans" exact element={<AddWorkoutPlans/>}/>
+        <Route path="/EditWorkoutPlan/:statusId" exact element={<EditWorkoutPlan/>}/>
+
         <Route path="/AddMedia" exact element={<AddMedia/>}/>
         <Route path="/MediaList" exact element={<MediaList/>}/>
         <Route path="/ViewOneMedia/:mediaId" exact element={<ViewOneMedia/>}/>
@@ -46,9 +51,6 @@ function App() {
         <Route path="/Addmealplan" exact element={<Addmealplan/>}/>
         <Route path="/Viewmealplan" exact element={<ViewMealPlan/>}/>
         <Route path="/Updatemealplan/:mealplanId" exact element={<UpdateMealPlan/>}/>
-
-        <Route path="/ViewAllWorkouts" exact element={<ViewAllWorkouts/>}/>
-
         </Routes>
       </div>
     </Router>
