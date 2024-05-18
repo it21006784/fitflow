@@ -105,7 +105,6 @@ function Login() {
             <br></br>
           <button onClick={handleGoogleLogin} className="google-login-btn">
             <FcGoogle /> Sign in with Google
-            <FcGoogle /> Sign in with Google
           </button>
           </center>
           <p className="login-signup-text">
