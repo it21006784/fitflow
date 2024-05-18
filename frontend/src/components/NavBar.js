@@ -22,7 +22,7 @@ function NavBar() {
         route = "/ViewAllWorkouts";
         break;
       case "Meal Plan":
-        route = "/";
+        route = "/Viewmealplan";
         break;
       default:
         route = "/";

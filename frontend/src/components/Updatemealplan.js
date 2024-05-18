@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import SideBar from "../components/SideBar";
+import RightSection from "../components/RightSection";
+import NavBar from "../components/NavBar";
+import Swal from "sweetalert2";
+import '../css/updatemealplan.css'; // Add appropriate styling
 
-function Updatemealplan() {
+function UpdateMealPlan() {
   const navigate = useNavigate();
   const { mealplanId } = useParams();
 
@@ -19,7 +24,7 @@ function Updatemealplan() {
         const response = await axios.get(`http://localhost:8081/mealplan/${mealplanId}`);
         setMealPlan(response.data);
       } catch (error) {
-        console.error("Error fetching mealplan:", error);
+        console.error("Error fetching meal plan:", error);
       }
     };
 
@@ -38,10 +43,16 @@ function Updatemealplan() {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const updatedMealPlan = { ...mealplan };
-      await axios.put(`http://localhost:8081/mealplan/${mealplanId}`, updatedMealPlan);
-      alert("Meal plan updated successfully");
-      navigate("/Viewmealplan");
+      await axios.put(`http://localhost:8081/mealplan/${mealplanId}`, mealplan);
+      Swal.fire({
+        icon: "success",
+        title: "Post Updated Successfully",
+        showConfirmButton: true,
+        confirmButtonText: "Confirm",
+      }).then(() => {
+        navigate("/Viewmealplan"); // Redirect to a different page after successful update
+      });
+      
     } catch (error) {
       console.error("Error updating meal plan:", error);
       alert("An error occurred while updating the meal plan");
@@ -49,9 +60,11 @@ function Updatemealplan() {
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row justify-content-center">
-        <div className="col-md-6">
+    <div className="wrapper">
+      <NavBar />
+      <div className="main-content">
+        <SideBar className="sidebar"/>
+        <div className="content">
           <div className="card">
             <div className="card-body">
               <h1 className="card-title">Update Meal Plan</h1>
@@ -65,6 +78,28 @@ function Updatemealplan() {
                     value={mealplan.recipes || ""}
                     onChange={(e) => onInputChange(e, "recipes")}
                     placeholder="Enter recipes"
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="ingredients" className="form-label">Ingredients:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="ingredients"
+                    value={mealplan.ingredients || ""}
+                    onChange={(e) => onInputChange(e, "ingredients")}
+                    placeholder="Enter ingredients"
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="cookingInstructions" className="form-label">Cooking Instructions:</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="cookingInstructions"
+                    value={mealplan.cookingInstructions || ""}
+                    onChange={(e) => onInputChange(e, "cookingInstructions")}
+                    placeholder="Enter cooking instructions"
                   />
                 </div>
                 <div className="mb-3">
@@ -95,11 +130,10 @@ function Updatemealplan() {
             </div>
           </div>
         </div>
+        <RightSection className="right-section"/>
       </div>
     </div>
   );
 }
 
-export default Updatemealplan;
-
-
+export default UpdateMealPlan;

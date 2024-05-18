@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.paf.fitflow.models.CurrentWorkoutStatus;
 import com.paf.fitflow.models.mealplan;
 import com.paf.fitflow.services.mealplanService;
 
@@ -57,15 +58,18 @@ public class mealplanController {
 
     
 
-     @PutMapping
-     public mealplan updatemealplan(@RequestBody mealplan status) {
-         return service.editmealplan( status);
-     }
-    @PutMapping("/category/{category}")
-    public ResponseEntity<List<mealplan>> updateMealPlansByCategory(@PathVariable String category, @RequestBody mealplan mealPlanRequest) {
-        List<mealplan> updatedMealPlans = service.editMealPlansByCategory(category, mealPlanRequest);
-        return ResponseEntity.ok(updatedMealPlans);
+    @PutMapping("/{mealplanId}")
+    public mealplan updateMealplan(@PathVariable String mealplanId, @RequestBody mealplan status){
+        status.setMealplanId(mealplanId); // Ensure the mealplanId is set
+        return service.editmealplan(status);
     }
+
+     
+    // @PutMapping("/category/{category}/{mealplanId}")
+    // public ResponseEntity<List<mealplan>> updateMealPlansByCategory(@PathVariable String category, @RequestBody mealplan mealPlanRequest) {
+    //     List<mealplan> updatedMealPlans = service.editMealPlansByCategory(category, mealPlanRequest);
+    //     return ResponseEntity.ok(updatedMealPlans);
+    // }
 
 
     @DeleteMapping("/{mealplanId}")

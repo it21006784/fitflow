@@ -1,0 +1,11 @@
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.background-container {
+    background-image: url('../Images/backgroundmeal.jpg'); /* Adjust the path as needed */
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+}

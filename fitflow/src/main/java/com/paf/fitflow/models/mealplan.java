@@ -18,8 +18,12 @@ public class mealplan {
     private String mealplanId;
     private String category;
     private String recipes;
+    private String ingredients;
+    private String cookingInstructions;
     private String nutritionalInformation;
     private String portionSizes;
+    
+
   
     
     

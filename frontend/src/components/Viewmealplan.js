@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import SideBar from "../components/SideBar"; 
+import RightSection from "../components/RightSection";
+import NavBar from "../components/NavBar";
+import { FaEdit } from "react-icons/fa"; // Import Font Awesome icons
+import { FaTrashAlt } from "react-icons/fa";
+import '../css/Viewmealplan.css';
 
 const ViewMealPlan = () => {
   const [mealPlans, setMealPlans] = useState([]);
@@ -50,11 +56,16 @@ const ViewMealPlan = () => {
   }, [selectedCategory]);
 
   return (
-    <div className="container">
-      <h2>View Meal Plans</h2>
+    
+    <center>
+      <NavBar />
+    <div className="container"><br></br>
+      <SideBar/>
+      
+      <h1>View Meal Plans</h1><br></br><br></br><br></br>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
-          <label htmlFor="categorySelect" className="form-label">Select Category:</label>
+          <label htmlFor="categorySelect" className="form-label">Select Category:</label><br></br>
           <select id="categorySelect" className="form-select" value={selectedCategory} onChange={handleCategoryChange}>
             <option value="">Select...</option>
             <option value="vegetarian">Vegetarian</option>
@@ -75,15 +86,26 @@ const ViewMealPlan = () => {
               <h3 className="card-title">{mealPlan.name}</h3>
               <p className="card-text"><strong>Category:</strong> {mealPlan.category}</p>
               <p className="card-text"><strong>Recipes:</strong> {mealPlan.recipes}</p>
+              <p className="card-text"><strong>Ingredients:</strong> {mealPlan.ingredients}</p>
+              <p className="card-text"><strong>Cooking Instructions:</strong> {mealPlan.cookingInstructions}</p>
               <p className="card-text"><strong>Nutritional Information:</strong> {mealPlan.nutritionalInformation}</p>
               <p className="card-text"><strong>Portion Sizes:</strong> {mealPlan.portionSizes}</p>
-              <Link to={`/Updatemealplan/${mealPlan.mealplanId}`} className="btn btn-primary me-2">Update</Link>
-              <button onClick={() => deleteMealPlan(mealPlan.mealplanId)} className="btn btn-danger">Delete</button>
+              <Link to={`/Updatemealplan/${mealPlan.mealplanId}`} className="btn btn-primary me-2"style={{ backgroundColor: "#804967", color: "white", cursor: "pointer" }}><FaEdit /></Link>
+              <button
+                    //className="btn btn-danger"
+                    onClick={() => deleteMealPlan(mealPlan.mealplanId)}
+                  >
+                     <FaTrashAlt />
+                  </button>
+              
             </div>
+            
           </div>
         ))}
       </div>
+      <RightSection/>
     </div>
+    </center>
   );
 };
 

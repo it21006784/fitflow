@@ -46,25 +46,45 @@ public class mealplanService {
      //populate new values from request to existing document
      mealplan existingMealplan = repository.findById(mealplanRequest.getMealplanId()).get();
     existingMealplan.setRecipes(mealplanRequest.getRecipes());
+    existingMealplan.setIngredients(mealplanRequest.getIngredients());
+    existingMealplan.setCookingInstructions(mealplanRequest.getCookingInstructions());
     existingMealplan.setNutritionalInformation(mealplanRequest.getNutritionalInformation());
     existingMealplan.setPortionSizes(mealplanRequest.getPortionSizes());
     
 
     return repository.save(existingMealplan);
  }
-    // Update meal plans by category
-    public List<mealplan> editMealPlansByCategory(String category, mealplan mealplanRequest) {
-        List<mealplan> mealPlansToUpdate = repository.findByCategory(category);
+    // // Update meal plans by category
+    // public List<mealplan> editMealPlansByCategory(String category, mealplan mealplanRequest) {
+    //     List<mealplan> mealPlansToUpdate = repository.findByCategory(category);
         
-        for (mealplan mp : mealPlansToUpdate) {
-            mp.setRecipes(mealplanRequest.getRecipes());
-            mp.setNutritionalInformation(mealplanRequest.getNutritionalInformation());
-            mp.setPortionSizes(mealplanRequest.getPortionSizes());
-            repository.save(mp);
-        }
+    //     for (mealplan mp : mealPlansToUpdate) {
+    //         mp.setRecipes(mealplanRequest.getRecipes());
+    //         mp.setNutritionalInformation(mealplanRequest.getNutritionalInformation());
+    //         mp.setPortionSizes(mealplanRequest.getPortionSizes());
+    //         repository.save(mp);
+    //     }
         
-        return mealPlansToUpdate;
-    }
+    //     return mealPlansToUpdate;
+    // }
+
+    public List<mealplan> editMealPlansByCategory(String category, String mealplanId, mealplan mealplanRequest) {
+      List<mealplan> mealPlansToUpdate = repository.findByCategory(category);
+      
+      for (mealplan mp : mealPlansToUpdate) {
+          if (mp.getMealplanId().equals(mealplanId)) {
+              mp.setRecipes(mealplanRequest.getRecipes());
+              mp.setIngredients(mealplanRequest.getIngredients());
+              mp.setCookingInstructions(mealplanRequest.getCookingInstructions());
+              mp.setNutritionalInformation(mealplanRequest.getNutritionalInformation());
+              mp.setPortionSizes(mealplanRequest.getPortionSizes());
+              repository.save(mp);
+          }
+      }
+      
+      return mealPlansToUpdate;
+  }
+  
 
 
 //delete mealplan by id

@@ -1,0 +1,32 @@
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .main-content {
+    display: flex;
+    flex: 1;
+  }
+  
+  .sidebar {
+    width: 250px; /* Adjust width as needed */
+  }
+  
+  .right-section {
+    width: 250px; /* Adjust width as needed */
+  }
+  
+  .content {
+    flex: 1;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    padding: 20px;
+  }
+  
+  .card {
+    width: 100%;
+    max-width: 600px; /* Set a max-width for the card */
+  }
+  
