@@ -40,44 +40,49 @@ const AddMedia = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (imageFiles.length === 0 && videoFiles.length === 0) {
+        setErrorMessage('Please upload at least one image or one video.');
+        return;
+    }
+
     const formData = new FormData();
     imageFiles.forEach((file) => formData.append('imageFiles', file));
     videoFiles.forEach((file) => formData.append('videoFiles', file));
     formData.append('description', description);
-  
+
     try {
-      const response = await axios.post('http://localhost:8081/api/media/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      console.log('Media uploaded successfully:', response.data);
-      setSuccessMessage('Media uploaded successfully!');
-      setErrorMessage('');
-      // Reset form fields and State
-      setDescription('');
-      setImageFiles([]);
-      setVideoFiles([]);
-      setImagePreviews([]);
-      setVideoPreviews([]);
+        const response = await axios.post('http://localhost:8081/api/media/upload', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+        console.log('Media uploaded successfully:', response.data);
+        setSuccessMessage('Media uploaded successfully!');
+        setErrorMessage('');
+        setDescription('');
+        setImageFiles([]);
+        setVideoFiles([]);
+        setImagePreviews([]);
+        setVideoPreviews([]);
     } catch (error) {
-      console.error('Error uploading media:', error);
-      console.log('Error details:', error.response); // Additional logging of error details
-      setSuccessMessage('');
-      setErrorMessage('Error uploading media. Please try again.');
+        console.error('Error uploading media:', error);
+        console.log('Error details:', error.response);
+        setSuccessMessage('');
+        setErrorMessage('Error uploading media. Please try again.');
     }
-  };
-  
+};
 
   return (
     <>
       <NavBar />
       <div className="container mt-5 d-flex justify-content-center align-items-center">
         <Sidebar />
-        <div className="card" style={{ width: "760px", height: "800px" }}>
+        <div className="cardm" style={{ width: "760px", height: "800px" }}>
           <div className="card-body">
             <h2 className="card-title text-center font-weight-bold mb-4">Upload Media</h2>
             <div className="form-group">
+              <br />
               <br />
               <label>Upload Images:</label>
               <input type="file" id="imageInput" className="form-control-file" accept="image/*" multiple style={{ display: 'none' }} onChange={handleImageChange} />
@@ -99,7 +104,7 @@ const AddMedia = () => {
                 ))}
               </div>
             </div>
-            <br /> {/* Use <br /> tags for spacing */}
+            <br />
             <form onSubmit={handleSubmit}>
               <div className="form-group">
                 <label htmlFor="description">Description:</label>

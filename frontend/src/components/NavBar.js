@@ -25,7 +25,7 @@ function NavBar() {
         route = "/Viewmealplan";
         break;
       default:
-        route = "/";
+        route = "#";
     }
     // Navigate to the corresponding route
     window.location.href = route;

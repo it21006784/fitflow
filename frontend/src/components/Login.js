@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { FcGoogle } from "react-icons/fc";
+import '../css/Login.css';
 
 function Login() {
   const navigate = useNavigate();
@@ -46,7 +48,7 @@ function Login() {
         localStorage.setItem("expirationTime", expirationTime);
 
         alert("Login successful");
-        navigate("/");
+        navigate("/fitflow");
       } else {
         throw new Error("Invalid response from server");
       }
@@ -54,6 +56,11 @@ function Login() {
       console.error("Login error:", error.message);
       alert("Login failed: " + error.message);
     }
+  };
+
+  const handleGoogleLogin = () => {
+    window.location.href = "https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=1008104272492-dbuhd97q8qpgmhips3nt4i0n9vr06l0u.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Flocalhost%3A8081%2Flogin%2Foauth2%2Fcode%2Fgoogle&response_type=code&scope=openid%20profile%20email&state=UUID.randomUUID().toString()&access_type=offline&service=lso&o2v=2&ddm=0&flowName=GeneralOAuthFlow"
+    
   };
 
   return (
@@ -94,6 +101,14 @@ function Login() {
               Login
             </button>
           </form>
+
+          <center>
+            <br></br>
+          <button onClick={handleGoogleLogin} className="google-login-btn">
+            <FcGoogle /> Sign in with Google
+          </button>
+          </center>
+
           <p className="login-signup-text">
             Don't have an account?{" "}
             <a href="/signup" className="login-signup-link">
@@ -106,4 +121,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Login;

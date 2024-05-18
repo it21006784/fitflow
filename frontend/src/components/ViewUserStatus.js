@@ -5,7 +5,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router";
 import RightSection from "../components/RightSection";
-import { FaHeart, FaComment, FaShareSquare, FaUser } from "react-icons/fa";
+import { FaHeart, FaComment, FaEdit } from "react-icons/fa";
 import "../css/workout.css";
 
 function DisplayWorkoutStatus() {
@@ -24,7 +24,7 @@ function DisplayWorkoutStatus() {
 
   const loadWorkoutStatus = async () => {
     try {
-      const result = await axios.get(`http://localhost:8081/currentStatus`);
+      const result = await axios.get(`http://localhost:8081/currentStatus/user/${userId}`);
       setWorkoutStatus(result.data);
       if (result.data.length > 0) {
         setSelectedImage(result.data[0].selectedImage);
@@ -47,11 +47,10 @@ function DisplayWorkoutStatus() {
     try {
       await axios.post(`http://localhost:8081/currentStatus/${statusId}/comment`, {
         commentId: "cmt" + new Date().getTime(),
-        userId: userId, 
+        userId: "66438e5f82c90660c83a4acd",
         content: commentText,
         date: new Date().toISOString(),
       });
-      
       setCommentText("");
       loadWorkoutStatus();
     } catch (error) {
@@ -79,9 +78,6 @@ function DisplayWorkoutStatus() {
       <div className="container">
         <Sidebar />
         <div className="content">
-        <div className="button-container" style={{marginLeft:"580px"}}>
-            <Link to="/ViewUserStatus" className="my-posts-icon" style={{color:"#884766"}}><FaUser /></Link>
-          </div>
           {workoutstatus.map((workout, index) => (
             <div key={index} className="card-container">
               <div className="user-details">
@@ -113,7 +109,7 @@ function DisplayWorkoutStatus() {
                 <button className="comment-btn" onClick={() => {toggleCommentInput(workout.statusId); toggleComments(workout.statusId)}}>
                   <FaComment />
                 </button>
-                <Link to='#' className="edit-btn"><FaShareSquare /></Link>
+                <Link to={`/UpdateStatus/${workout.statusId}`} className="edit-btn"><FaEdit /></Link>
               </div>
               {showCommentInput[workout.statusId] && (
                 <div className="add-comment">
@@ -123,8 +119,7 @@ function DisplayWorkoutStatus() {
                     onChange={(e) => setCommentText(e.target.value)}
                     placeholder="Add a comment..."
                   />
-                  <button onClick={() => handleCommentSubmit(workout.statusId, workout.username)}>Submit</button>
-
+                  <button onClick={() => handleCommentSubmit(workout.statusId)}>Submit</button>
                 </div>
               )}
               {showComments[workout.statusId] && (

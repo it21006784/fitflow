@@ -58,6 +58,17 @@ public class MediaController {
     }
 
     
+    @PutMapping("/{mediaId}/description")
+    public ResponseEntity<Void> updateMediaDescription(@PathVariable String mediaId, @RequestParam("description") String newDescription) {
+        boolean updated = mediaService.updateMediaDescription(mediaId, newDescription);
+        if (updated) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    
 
 }
 

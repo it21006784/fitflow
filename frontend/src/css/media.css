@@ -1,10 +1,13 @@
 /* media.css */
 
-.card {
+.cardm {
   background-color: rgba(255, 255, 255, 0.8); /* Add opacity to the card background */
   padding: 20px; /* Adjust padding as needed */
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow for better contrast */
+  background-image: url(../Images/addm.jpeg);
+  background-size: cover
+  
 }
 
 .preview-container {
@@ -24,4 +27,10 @@
   background-color: #884766; /* Change button background color */
   margin-top: 10px; /* Add margin between button and previews */
   border: 1px solid #884766;
+  outline: #884766; /* Remove blue outline */
 }
+
+.btn.btn-primary:hover {
+  background-color: #b16f8f; /* Change button background color on hover */
+}
+
