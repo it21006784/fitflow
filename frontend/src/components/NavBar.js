@@ -22,10 +22,10 @@ function NavBar() {
         route = "/ViewAllWorkouts";
         break;
       case "Meal Plan":
-        route = "/";
+        route = "#";
         break;
       default:
-        route = "/";
+        route = "#";
     }
     // Navigate to the corresponding route
     window.location.href = route;

@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { FaUser, FaBell, FaCog, FaSignOutAlt } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../css/nav.css";
 import "../css/workout.css";
 
 
 function RightSection({ followers }) {
   const [userId, setUserId] = useState("");
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Clear isLoggedIn flag from local storage
+    localStorage.removeItem("isLoggedIn");
+    
+    alert("Logged out successfully");
+    navigate("/");
+  };
+
 
   useEffect(() => {
     // Retrieve userId from localStorage
@@ -21,8 +31,8 @@ function RightSection({ followers }) {
       {/* Icons container */}
       <div className="icons-container">
         {/* Logout icon */}
-        <Link to="/logout" style={{ textDecoration: "none", color: "white" }}>
-          <div className="icon"><FaSignOutAlt size={20} color="white" /></div>
+        <Link to="/" onClick={handleLogout} style={{ textDecoration: "none", color: "white", backgroundColor: "none" }}>
+          <div className="icon"><FaSignOutAlt size={20} color="white"/></div>
         </Link>
         {/* Setting icon */}
         <Link to="/settings" style={{ textDecoration: "none", color: "white" }}>

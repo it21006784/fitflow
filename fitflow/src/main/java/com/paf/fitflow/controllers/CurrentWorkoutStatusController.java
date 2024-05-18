@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.paf.fitflow.models.Comment;
 import com.paf.fitflow.models.CurrentWorkoutStatus;
+import com.paf.fitflow.models.UserModel;
 import com.paf.fitflow.services.CurrentWorkoutStatusService;
+import com.paf.fitflow.services.UserService;
 
 import java.util.List;
 
@@ -29,9 +31,20 @@ public class CurrentWorkoutStatusController {
     @Autowired
     private CurrentWorkoutStatusService service;
 
-    @PostMapping
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("/{userId}")
     @ResponseStatus(HttpStatus.CREATED)
-    public CurrentWorkoutStatus createWorkoutStatus(@RequestBody CurrentWorkoutStatus status){
+    public CurrentWorkoutStatus createWorkoutStatus(@RequestBody CurrentWorkoutStatus status, @PathVariable String userId){
+        status.setUserId(userId);
+        UserModel user = userService.getUserById(userId);
+    
+        // Get the username from the user
+        String username = user.getUsername();
+        
+        // Set the username in the status object
+        status.setUsername(username);
         return service.addWorkoutStatus(status);
     }
     
@@ -44,6 +57,11 @@ public class CurrentWorkoutStatusController {
     @GetMapping("/{statusId}")
     public CurrentWorkoutStatus getCurrentWorkoutUpdate(@PathVariable String statusId) {
         return service.getCurrentWorkoutStatus(statusId);
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<CurrentWorkoutStatus> getCurrentUserWorkoutStatuses(@PathVariable String userId) {
+        return service.getCurrentUserWorkoutStatuses(userId);
     }
     
     @PutMapping

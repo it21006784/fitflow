@@ -32,8 +32,20 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
+    // Method to find a user by their email
+    public UserModel findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+
+    // Method to save a user
+    public UserModel save(UserModel user) {
+        return userRepository.save(user);
+    }
+
     public UserModel getUserById(String userId) {
         return userRepository.findById(userId).get();
     }
+    
 
 }
