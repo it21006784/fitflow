@@ -1,19 +1,16 @@
-/* media.css */
-
 .cardm {
-  background-color: rgba(255, 255, 255, 0.8); /* Add opacity to the card background */
-  padding: 20px; /* Adjust padding as needed */
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow for better contrast */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-image: url(../Images/addm.jpeg);
-  background-size: cover
-  
+  background-size: cover;
 }
 
 .preview-container {
   display: flex;
-  justify-content: center; /* Center the previews horizontally */
-  margin-top: 10px; /* Add margin between button and previews */
+  justify-content: center;
+  margin-top: 10px;
 }
 
 .preview-image-large, .preview-video-large {
@@ -23,14 +20,20 @@
   margin-right: 10px;
 }
 
-.btn.btn-primary {
-  background-color: #884766; /* Change button background color */
-  margin-top: 10px; /* Add margin between button and previews */
+/* Override Bootstrap's default button styles */
+.btn.btn-primary,
+.btn.btn-primary:focus,
+.btn.btn-primary:active {
+  background-color: #884766;
   border: 1px solid #884766;
-  outline: #884766; /* Remove blue outline */
+  color: #fff; /* Set text color to white */
 }
 
 .btn.btn-primary:hover {
-  background-color: #b16f8f; /* Change button background color on hover */
+  background-color: #b16f8f;
 }
 
+/* Remove blue outline from all elements */
+*:focus {
+  outline: none !important;
+}

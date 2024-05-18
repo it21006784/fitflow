@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Document(collection = "medias")
@@ -26,5 +27,12 @@ public class Media {
     private List<byte[]> videoFiles; 
 
     private String description;
+
+    private int likes; 
+
+    private List<Comment> comments = new ArrayList<>();
+    private String userId;
+    private String username;
+    private String date;
 }
 

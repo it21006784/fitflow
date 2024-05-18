@@ -6,7 +6,7 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import '../css/MediaList.css';
 import RightSection from "../components/RightSection";
-import { FaHeart, FaComment, FaEdit } from "react-icons/fa";
+import { FaHeart, FaComment, FaEdit, FaShare } from "react-icons/fa";
 
 const MediaList = () => {
     const [mediaList, setMediaList] = useState([]);
@@ -51,15 +51,20 @@ const MediaList = () => {
         setDeleteId(null);
     };
 
-    const handleLike = (mediaId) => {
-        setMediaList(prevMediaList => {
-            return prevMediaList.map(media => {
-                if (media.id === mediaId) {
-                    return { ...media, liked: !media.liked };
-                }
-                return media;
+    const handleLike = async (mediaId) => {
+        try {
+            await axios.post(`http://localhost:8081/api/media/${mediaId}/like`);
+            setMediaList(prevMediaList => {
+                return prevMediaList.map(media => {
+                    if (media.id === mediaId) {
+                        return { ...media, likes: (media.likes || 0) + 1 };
+                    }
+                    return media;
+                });
             });
-        });
+        } catch (error) {
+            console.error("Error liking media:", error);
+        }
     };
 
     const handleComment = (mediaId) => {
@@ -138,9 +143,12 @@ const MediaList = () => {
                                 </Carousel>
                             )}
                             <div className="media-actions">
-                                <button className="action-button like-button" onClick={() => handleLike(media.id)} liked={media.liked}><FaHeart /></button>
-                                <button className="action-button comment-button" onClick={() => handleComment(media.id)} commented={media.commented}><FaComment /></button>
-                                <button className="action-button share-button" onClick={() => handleShare(media.id)}>Share</button>
+                                <div className="like-container">
+                                    <button className="action-button like-button" onClick={() => handleLike(media.id)}><FaHeart /></button>
+                                    <span className="like-count">{media.likes || 0}</span> {/* Display the like count */}
+                                </div>
+                                <button className="action-button comment-button" onClick={() => handleComment(media.id)}><FaComment /></button>
+                                <button className="action-button share-button" onClick={() => handleShare(media.id)}><FaShare/></button>
                                 <button className="action-button edit-button" onClick={() => handleEditDescription(media.id, media.description)}><FaEdit /></button>
                             </div>
                             <button className="delete-button" onClick={() => confirmDelete(media.id)}>Delete</button>

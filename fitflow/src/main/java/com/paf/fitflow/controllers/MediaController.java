@@ -1,5 +1,6 @@
 package com.paf.fitflow.controllers;
 
+import com.paf.fitflow.models.Comment;
 import com.paf.fitflow.models.Media;
 import com.paf.fitflow.services.MediaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,9 @@ public class MediaController {
     @PostMapping("/upload")
     public ResponseEntity<Media> uploadMedia(@RequestParam("imageFiles") List<MultipartFile> imageFiles,
                                              @RequestParam("videoFiles") List<MultipartFile> videoFiles,
-                                             @RequestParam("description") String description) {
-        Media uploadedMedia = mediaService.uploadMedia(imageFiles, videoFiles, description);
+                                             @RequestParam("description") String description,
+                                             @RequestParam("userId") String userId) {
+        Media uploadedMedia = mediaService.uploadMedia(imageFiles, videoFiles, description, userId);
         return new ResponseEntity<>(uploadedMedia, HttpStatus.CREATED);
     }
 
@@ -36,7 +38,6 @@ public class MediaController {
         }
     }
 
-
     @GetMapping("/{mediaId}")
     public ResponseEntity<Media> getMediaById(@PathVariable String mediaId) {
         Media media = mediaService.getMediaById(mediaId);
@@ -44,6 +45,16 @@ public class MediaController {
             return new ResponseEntity<>(media, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Media>> getMediaByUserId(@PathVariable String userId) {
+        List<Media> userMedia = mediaService.getMediaByUserId(userId);
+        if (!userMedia.isEmpty()) {
+            return new ResponseEntity<>(userMedia, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
 
@@ -57,7 +68,18 @@ public class MediaController {
         }
     }
 
-    
+    @PostMapping("/{mediaId}/like")
+    public ResponseEntity<Media> likeMedia(@PathVariable String mediaId) {
+        Media likedMedia = mediaService.likeMedia(mediaId);
+        return new ResponseEntity<>(likedMedia, HttpStatus.OK);
+    }
+
+    @PostMapping("/{mediaId}/comment")
+    public ResponseEntity<Media> addCommentToMedia(@PathVariable String mediaId, @RequestBody Comment comment) {
+        Media media = mediaService.addCommentToMedia(mediaId, comment);
+        return new ResponseEntity<>(media, HttpStatus.OK);
+    }
+
     @PutMapping("/{mediaId}/description")
     public ResponseEntity<Void> updateMediaDescription(@PathVariable String mediaId, @RequestParam("description") String newDescription) {
         boolean updated = mediaService.updateMediaDescription(mediaId, newDescription);
@@ -67,8 +89,4 @@ public class MediaController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
-    
-
 }
-

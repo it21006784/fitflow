@@ -1,5 +1,6 @@
 package com.paf.fitflow.services;
 
+import com.paf.fitflow.models.Comment;
 import com.paf.fitflow.models.Media;
 import com.paf.fitflow.repositories.MediaRepository;
 
@@ -18,10 +19,13 @@ public class MediaService {
     @Autowired
     private MediaRepository mediaRepository;
 
-    public Media uploadMedia(List<MultipartFile> imageFiles, List<MultipartFile> videoFiles, String description) {
+    public Media uploadMedia(List<MultipartFile> imageFiles, List<MultipartFile> videoFiles, String description, String userId) {
         Media media = new Media();
         media.setDescription(description);
-        
+        media.setUserId(userId);
+        media.setLikes(0); // Initialize likes to 0
+        media.setComments(new ArrayList<>()); // Initialize comments
+
         List<byte[]> imageBytesList = new ArrayList<>();
         for (MultipartFile imageFile : imageFiles) {
             try {
@@ -31,7 +35,7 @@ public class MediaService {
             }
         }
         media.setImageFiles(imageBytesList);
-        
+
         List<byte[]> videoBytesList = new ArrayList<>();
         for (MultipartFile videoFile : videoFiles) {
             try {
@@ -51,6 +55,10 @@ public class MediaService {
 
     public Media getMediaById(String mediaId) {
         return mediaRepository.findById(mediaId).orElse(null);
+    }
+
+    public List<Media> getMediaByUserId(String userId) {
+        return mediaRepository.findByUserId(userId);
     }
 
     public boolean deleteMedia(String mediaId) {
@@ -73,4 +81,18 @@ public class MediaService {
         return false;
     }
 
+    public Media likeMedia(String mediaId) {
+        Media media = mediaRepository.findById(mediaId)
+            .orElseThrow(() -> new RuntimeException("Media not found"));
+        media.setLikes(media.getLikes() + 1);
+        return mediaRepository.save(media);
+    }
+
+    public Media addCommentToMedia(String mediaId, Comment comment) {
+        Media media = mediaRepository.findById(mediaId)
+            .orElseThrow(() -> new RuntimeException("Media not found"));
+
+        media.getComments().add(comment);
+        return mediaRepository.save(media);
+    }
 }

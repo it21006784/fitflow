@@ -36,7 +36,7 @@
 }
 
 .action-button {
-    background-color: #060809;
+    background-color: #5c4d54;
     border: none;
     color: white;
     padding: 10px 15px;
@@ -55,11 +55,11 @@
 }
 
 .action-button.share-button {
-    background-color: #060809;
+    background-color: #5c4d54;
 }
 
 .action-button.edit-button {
-    background-color: #884766;
+    background-color: #5c4d54;
 }
 
 .action-button:hover {
@@ -141,4 +141,22 @@
     margin-bottom: 20px;
     text-align: center;
     font-size: 16px;
+}
+/* Add this to your MediaList.css */
+
+.like-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center the icon horizontally */
+}
+
+.like-count {
+    position: absolute;
+    top: 50%; /* Center vertically */
+    left: 50%; /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust to be exactly in the center */
+    color: rgb(18, 18, 18); /* Change color if needed */
+    font-size: 0.8rem; /* Adjust size if needed */
+    font-weight: bold;
 }
