@@ -68,6 +68,10 @@ export default function EditWorkoutPlan() {
         }
     };
 
+    function handleCancel() {
+        navigate("/ViewAllWorkouts");
+    };
+
     if (error) return <div className="alert alert-danger">Error: {error.message}</div>;
 
     return (
@@ -118,6 +122,7 @@ export default function EditWorkoutPlan() {
                         <br />
                         <button type="submit" className="update_btn">Update</button>
                         <button type="button" className="delete_btn" onClick={onDelete}>Delete</button>
+                        <button className="btn btn-secondary" style={{ marginLeft: '10px' }} type="button" onClick={handleCancel}>Cancel</button>
                     </form>
                 </div>
             </div>

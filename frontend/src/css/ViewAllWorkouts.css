@@ -279,3 +279,13 @@
   align-items: center;
 }
   
+.centered-heading-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Adjust the top margin as needed */
+}
+
+.titleStyle {
+  color: #0F3052;
+  text-align: center;
+}
