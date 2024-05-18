@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 export default function EditWorkoutPlan() {
     const navigate = useNavigate();
-    const { id } = useParams();
+    const { w_id } = useParams();
     const [error, setError] = useState(null);
 
     const [workoutPlan, setWorkoutPlan] = useState({
@@ -17,17 +17,21 @@ export default function EditWorkoutPlan() {
     });
 
     useEffect(() => {
+        console.log("ID :" + w_id);
         fetchWorkoutPlan();
-    }, []);
+    }, [w_id]);
 
     const fetchWorkoutPlan = async () => {
         try {
-            const response = await axios.get(`http://localhost:8081/api/workout/${id}`);
-            setWorkoutPlan(response.data || {
-                w_name: "",
-                description: "",
-                timeDuration: ""
-            });
+            const response = await axios.get(`http://localhost:8081/api/workout/${w_id}`);
+            if (response.data) {
+                setWorkoutPlan({
+                    w_name: response.data.w_name || "",
+                    description: response.data.description || "",
+                    timeDuration: response.data.timeDuration || ""
+                });
+                console.log(workoutPlan);
+            }
         } catch (error) {
             console.error("Error fetching workout plan:", error);
             setError(error);
@@ -41,7 +45,7 @@ export default function EditWorkoutPlan() {
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
-            await axios.put(`http://localhost:8081/api/workout/${id}`, workoutPlan);
+            await axios.put(`http://localhost:8081/api/workout/${w_id}`, workoutPlan);
             alert("Workout plan updated successfully");
             navigate("/ViewAllWorkouts");
         } catch (error) {
@@ -54,14 +58,13 @@ export default function EditWorkoutPlan() {
         const confirmDelete = window.confirm("Are you sure you want to delete this workout plan?");
         if (confirmDelete) {
             try {
-                await axios.delete(`http://localhost:8081/api/workout/${id}`);
+                await axios.delete(`http://localhost:8081/api/workout/${w_id}`);
+                alert("Workout plan deleted successfully");
+                navigate("/ViewAllWorkouts");
             } catch (error) {
                 console.error("Error deleting workout plan:", error);
                 alert("An error occurred while deleting the workout plan.");
             }
-            alert("Workout plan deleted successfully");
-            navigate("/ViewAllWorkouts");
-            
         }
     };
 
@@ -88,7 +91,6 @@ export default function EditWorkoutPlan() {
                             className="form_input"
                             value={workoutPlan.w_name}
                             name="w_name"
-                            placeholder="Enter workout plan name"
                         />
                         <br />
                         <label className="form_label" htmlFor="description">
@@ -100,7 +102,6 @@ export default function EditWorkoutPlan() {
                             value={workoutPlan.description}
                             onChange={onInputChange}
                             name="description"
-                            placeholder="Enter workout plan description"
                         ></textarea>
                         <br />
                         <label className="form_label" htmlFor="timeDuration">
@@ -113,7 +114,6 @@ export default function EditWorkoutPlan() {
                             className="form_input"
                             value={workoutPlan.timeDuration}
                             name="timeDuration"
-                            placeholder="Enter workout plan time duration"
                         />
                         <br />
                         <button type="submit" className="update_btn">Update</button>

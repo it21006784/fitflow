@@ -46,7 +46,7 @@ function App() {
 
         <Route path="/ViewAllWorkouts" exact element={<ViewAllWorkouts/>}/>
         <Route path="/AddWorkoutPlans" exact element={<AddWorkoutPlans/>}/>
-        <Route path="/EditWorkoutPlan/:statusId" exact element={<EditWorkoutPlan/>}/>
+        <Route path="/EditWorkoutPlan/:w_id" exact element={<EditWorkoutPlan/>}/>
 
         <Route path="/AddMedia" exact element={<AddMedia/>}/>
         <Route path="/MediaList" exact element={<MediaList/>}/>
