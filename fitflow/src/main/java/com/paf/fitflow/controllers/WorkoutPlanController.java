@@ -46,10 +46,10 @@ public class WorkoutPlanController {
         return workoutPlanService.addWorkoutPlan(workout);
     }
 
-    @PutMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public Workout updateWorkoutPlans(@RequestBody Workout workout, String w_id ){
-        return workoutPlanService.updateWorkoutPlan(workout,w_id);
+    @PutMapping("/{w_id}")
+    @ResponseStatus(HttpStatus.OK) 
+    public Workout updateWorkoutPlans(@PathVariable String w_id, @RequestBody Workout workout){
+        return workoutPlanService.updateWorkoutPlan(w_id, workout);
     }
 
     @DeleteMapping("/{w_id}")

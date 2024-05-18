@@ -3,8 +3,8 @@ import axios from "axios";
 import NavBar from "./NavBar";
 import Sidebar from "./SideBar";
 import { FaHeart, FaComment, FaEdit } from "react-icons/fa"; // Import Font Awesome icons
-import '../css/ViewAllWorkouts.css'
-import { useParams, Link } from "react-router-dom";
+import '../css/ViewAllWorkouts.css';
+import { Link } from "react-router-dom";
 
 export default function ViewAllWorkouts() {
     const [workouts, setWorkouts] = useState([]);
@@ -19,24 +19,6 @@ export default function ViewAllWorkouts() {
                 setError(error);
             });
     }, []);
-
-    const handleDelete = (w_id) => {
-        const confirmDelete = window.confirm("Are you sure you want to delete?");
-        if (confirmDelete) {
-            axios.delete(`http://localhost:8081/api/workout/${w_id}`)
-                .then(response => {
-                    console.log('Deleted workout with ID:', w_id);
-                    // Update the workouts state to remove the deleted workout
-                    setWorkouts(workouts.filter(workout => workout.id !== w_id));
-                })
-                .catch(error => {
-                    console.error('Error deleting workout:', error);
-                    // Handle error
-                });
-
-
-        }
-    };
 
     if (error) return <div className="alert alert-danger">Error: {error.message}</div>;
 

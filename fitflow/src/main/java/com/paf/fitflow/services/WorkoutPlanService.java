@@ -32,18 +32,15 @@ public class WorkoutPlanService {
         return repo.save(workout);
     }
 
-    public Workout updateWorkoutPlan(Workout workout,String w_id) {
-        Workout existingWorkout = repo.findById(w_id).get();
+    public Workout updateWorkoutPlan(String w_id, Workout workout) {
+        Workout existingWorkout = repo.findById(w_id).orElseThrow(() -> new RuntimeException("Workout plan not found"));
 
-        if(existingWorkout != null){
-            existingWorkout.setW_name(workout.getW_name());
-            existingWorkout.setDescription(workout.getDescription());
-            existingWorkout.setTimeDuration(workout.getTimeDuration());
-            existingWorkout.setLikes(workout.getLikes());
-        }
+        existingWorkout.setW_name(workout.getW_name());
+        existingWorkout.setDescription(workout.getDescription());
+        existingWorkout.setTimeDuration(workout.getTimeDuration());
         
-        return repo.save(workout);
-    }    
+        return repo.save(existingWorkout);
+    }       
 
     public String deleteWorkoutPlan(String id) {
         repo.deleteById(id);
