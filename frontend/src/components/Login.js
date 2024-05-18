@@ -63,7 +63,6 @@ function Login() {
     
   };
 
-
   return (
     <div className="login-container">
       <div className="login-form-box">
@@ -102,9 +101,14 @@ function Login() {
               Login
             </button>
           </form>
+
+          <center>
+            <br></br>
           <button onClick={handleGoogleLogin} className="google-login-btn">
-            Sign in with Google
+            <FcGoogle /> Sign in with Google
           </button>
+          </center>
+
           <p className="login-signup-text">
             Don't have an account?{" "}
             <a href="/signup" className="login-signup-link">
