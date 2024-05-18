@@ -21,6 +21,7 @@ public class CurrentWorkoutStatus {
     @Id
     private String statusId;
     private String userId;
+    private String username;
     private String date;
     private String description;
     private double distanceRun;

@@ -41,6 +41,10 @@ public class CurrentWorkoutStatusService {
         return statusList;
     }
 
+    public List<CurrentWorkoutStatus> getCurrentUserWorkoutStatuses(String userId) {
+        return repository.findByUserId(userId);
+    }
+    
     //get current workout status by id
     public CurrentWorkoutStatus getCurrentWorkoutStatus(String statusId) {
         return repository.findById(statusId).get();

@@ -14,4 +14,6 @@ public interface UserRepository extends MongoRepository<UserModel, String> {
     
     // Method to find a user by their username
     UserModel findByUsername(String username);
+
+    UserModel findByEmail(String email);
 }

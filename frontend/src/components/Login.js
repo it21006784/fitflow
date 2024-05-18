@@ -48,7 +48,7 @@ function Login() {
         localStorage.setItem("expirationTime", expirationTime);
 
         alert("Login successful");
-        navigate("/");
+        navigate("/fitflow");
       } else {
         throw new Error("Invalid response from server");
       }
@@ -101,12 +101,14 @@ function Login() {
               Login
             </button>
           </form>
+
           <center>
             <br></br>
           <button onClick={handleGoogleLogin} className="google-login-btn">
             <FcGoogle /> Sign in with Google
           </button>
           </center>
+
           <p className="login-signup-text">
             Don't have an account?{" "}
             <a href="/signup" className="login-signup-link">
@@ -119,4 +121,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Login;

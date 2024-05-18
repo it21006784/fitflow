@@ -11,6 +11,7 @@ public class Comment {
 
     private String commentId;
     private String userId;
+    private String username;
     private String content;
     private String date;
 

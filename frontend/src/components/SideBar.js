@@ -29,7 +29,7 @@ function SideBar() {
 
   // Sidebar items with icons and corresponding paths
   const sidebarItems = [
-    { name: "Home", icon: <FaHome />, path: "/" },
+    { name: "Home", icon: <FaHome />, path: "/fitflow" },
     { name: "Post Upload", icon: <FaUpload />, path: "/AddMedia" },
     { name: "Workout Status Upload", icon: <FaRunning />, path: "/AddCurrentWorkoutStatus" },
     { name: "Workout Plan Upload" , icon: <FaDumbbell />, path: "/" },
