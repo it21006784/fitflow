@@ -6,6 +6,8 @@ import ViewCurrentWorkoutStatus from './components/ViewCurrentWorkoutStatus';
 import ViewAllStatus from './components/ViewAllStatus';
 import UpdateStatus from './components/UpdateStatus';
 import Home from "./components/Home";
+import ViewUserStatus from "./components/ViewUserStatus";
+import Logout from './components/Logout';
 
 import Login from "./components/Login"
 import Register from "./components/Register";
@@ -30,8 +32,8 @@ function App() {
 
         <Routes>
 
-        <Route path="/" element={<Home />} />
-        <Route path="/Login" element={<Login/>} />
+        <Route path="/fitflow" element={<Home />} />
+        <Route path="/" element={<Login/>} />
 
         <Route path="/AddCurrentWorkoutStatus" exact element={<AddCurrentWorkoutStatus/>}/>
         <Route path="/ViewCurrentWorkoutStatus/:statusId" exact element={<ViewCurrentWorkoutStatus/>}/>
@@ -39,6 +41,8 @@ function App() {
         <Route path="/UpdateStatus/:statusId" exact element={<UpdateStatus/>}/>
         <Route path="/Register" exact element={<Register/>}/>
         <Route path="/UserProfile/:userId" exact element={<UserProfile/>}/>
+        <Route path="/ViewUserStatus" exact element={<ViewUserStatus/>}/>
+        <Route path="/logout" exact element={<Logout/>}/>
 
         <Route path="/ViewAllWorkouts" exact element={<ViewAllWorkouts/>}/>
         <Route path="/AddWorkoutPlans" exact element={<AddWorkoutPlans/>}/>

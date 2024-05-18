@@ -1,0 +1,15 @@
+.google-login-btn {
+    background-color: #888c8e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .google-login-btn:hover {
+    background-color: #81747a;
+  }
+  

@@ -2,14 +2,18 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Sidebar from "../components/SideBar";
 import NavBar from "../components/NavBar";
-import { Carousel } from 'react-responsive-carousel'; // Import Carousel component
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; // Import Carousel styles
-import '../css/MediaList.css'; // Import CSS file for styling
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import '../css/MediaList.css';
 import RightSection from "../components/RightSection";
+import { FaHeart, FaComment, FaEdit } from "react-icons/fa";
 
 const MediaList = () => {
     const [mediaList, setMediaList] = useState([]);
-    const [deleteId, setDeleteId] = useState(null); // Track the ID of the media to be deleted
+    const [deleteId, setDeleteId] = useState(null);
+    const [editedDescription, setEditedDescription] = useState("");
+    const [editModeId, setEditModeId] = useState(null);
+    const [successMessage, setSuccessMessage] = useState("");
 
     useEffect(() => {
         async function fetchData() {
@@ -27,74 +31,135 @@ const MediaList = () => {
         try {
             await axios.delete(`http://localhost:8081/api/media/${mediaId}`);
             setMediaList(prevMediaList => prevMediaList.filter(media => media.id !== mediaId));
+            setSuccessMessage("Post is deleted successfully");
+            setTimeout(() => setSuccessMessage(""), 3000);
         } catch (error) {
             console.error('Error deleting media: ', error);
         }
     };
 
     const confirmDelete = (mediaId) => {
-        setDeleteId(mediaId); // Set the ID of the media to be deleted
+        setDeleteId(mediaId);
     };
 
     const cancelDelete = () => {
-        setDeleteId(null); // Reset the delete ID
+        setDeleteId(null);
     };
 
     const proceedDelete = () => {
         handleDelete(deleteId);
-        setDeleteId(null); // Reset the delete ID after deletion
+        setDeleteId(null);
     };
 
     const handleLike = (mediaId) => {
-        // Implement logic to handle liking a media post
+        setMediaList(prevMediaList => {
+            return prevMediaList.map(media => {
+                if (media.id === mediaId) {
+                    return { ...media, liked: !media.liked };
+                }
+                return media;
+            });
+        });
     };
 
     const handleComment = (mediaId) => {
-        // Implement logic to handle commenting on a media post
+        setMediaList(prevMediaList => {
+            return prevMediaList.map(media => {
+                if (media.id === mediaId) {
+                    return { ...media, commented: true };
+                }
+                return media;
+            });
+        });
     };
 
     const handleShare = (mediaId) => {
         // Implement logic to handle sharing a media post
     };
 
+    const handleEditDescription = (mediaId, description) => {
+        setEditedDescription(description);
+        setEditModeId(mediaId);
+    };
+
+    const handleSaveDescription = async (mediaId) => {
+        console.log("Edited description before saving:", editedDescription);
+        try {
+            await axios.put(`http://localhost:8081/api/media/${mediaId}/description`, null, {
+                params: {
+                    description: editedDescription
+                }
+            });
+            setMediaList(prevMediaList => {
+                return prevMediaList.map(media => {
+                    if (media.id === mediaId) {
+                        return { ...media, description: editedDescription };
+                    }
+                    return media;
+                });
+            });
+            setEditModeId(null);
+            setSuccessMessage(`Description is edited successfully`);
+            setTimeout(() => setSuccessMessage(""), 3000);
+        } catch (error) {
+            console.error('Error updating description: ', error);
+        }
+    };
+
     return (
-        <><div className='displayFit'>
-            <NavBar /> Include the NavBar component
-            <div className="media-list-container">
-                <Sidebar />
-                {mediaList.map(media => (
-                    <div key={media.id} className="media-card">
-                        <h3 className="media-description">{media.description}</h3>
-                        {(media.imageFiles.length > 0 || media.videoFiles.length > 0) && (
-                            <Carousel showThumbs={false} showArrows={true} className="media-carousel">
-                                {media.imageFiles.map((image, index) => (
-                                    <img key={index} className="media-image" src={`data:image/jpeg;base64,${image}`} alt={`Image ${index}`} />
-                                ))}
-                                {media.videoFiles.map((video, index) => (
-                                    <video key={index} className="media-video" controls>
-                                        <source src={`data:video/mp4;base64,${video}`} type="video/mp4" />
-                                        Your browser does not support the video tag.
-                                    </video>
-                                ))}
-                            </Carousel>
-                        )}
-                        <div className="media-actions">
-                            <button className="action-button like-button" onClick={() => handleLike(media.id)}>Like</button>
-                            <button className="action-button comment-button" onClick={() => handleComment(media.id)}>Comment</button>
-                            <button className="action-button share-button" onClick={() => handleShare(media.id)}>Share</button>
-                        </div>
-                        <button className="delete-button" onClick={() => confirmDelete(media.id)}>Delete</button>
-                        {deleteId === media.id && (
-                            <div className="delete-confirmation">
-                                <p>Are you sure you want to delete this post?</p>
-                                <button onClick={proceedDelete}>Yes</button>
-                                <button onClick={cancelDelete}>No</button>
+        <>
+            <NavBar />
+            <div className='displayFit'>
+                <div className="media-list-container">
+                    <Sidebar />
+                    {successMessage && <div className="success-message">{successMessage}</div>}
+                    {mediaList.map(media => (
+                        <div key={media.id} className="media-card">
+                            {editModeId === media.id ? (
+                                <input
+                                    type="text"
+                                    value={editedDescription}
+                                    onChange={(e) => setEditedDescription(e.target.value)}
+                                />
+                            ) : (
+                                <h3 className="media-description">{media.description}</h3>
+                            )}
+                            {(media.imageFiles.length > 0 || media.videoFiles.length > 0) && (
+                                <Carousel showThumbs={false} showArrows={true} className="media-carousel">
+                                    {media.imageFiles.map((image, index) => (
+                                        <img key={index} className="media-image" src={`data:image/jpeg;base64,${image}`} alt={`Image ${index}`} />
+                                    ))}
+                                    {media.videoFiles.map((video, index) => (
+                                        <video key={index} className="media-video" controls>
+                                            <source src={`data:video/mp4;base64,${video}`} type="video/mp4" />
+                                            Your browser does not support the video tag.
+                                        </video>
+                                    ))}
+                                </Carousel>
+                            )}
+                            <div className="media-actions">
+                                <button className="action-button like-button" onClick={() => handleLike(media.id)} liked={media.liked}><FaHeart /></button>
+                                <button className="action-button comment-button" onClick={() => handleComment(media.id)} commented={media.commented}><FaComment /></button>
+                                <button className="action-button share-button" onClick={() => handleShare(media.id)}>Share</button>
+                                <button className="action-button edit-button" onClick={() => handleEditDescription(media.id, media.description)}><FaEdit /></button>
                             </div>
-                        )}
-                    </div>
-                ))}
+                            <button className="delete-button" onClick={() => confirmDelete(media.id)}>Delete</button>
+                            {deleteId === media.id && (
+                                <div className="delete-confirmation">
+                                    <p>Are you sure you want to delete this post?</p>
+                                    <button onClick={proceedDelete}>Yes</button>
+                                    <button onClick={cancelDelete}>No</button>
+                                </div>
+                            )}
+                            {editModeId === media.id && (
+                                <button className="save-button" onClick={() => handleSaveDescription(media.id)}>Save</button>
+                            )}
+                        </div>
+                    ))}
+                </div>
+                <RightSection />
             </div>
-        </div><RightSection /></>
+        </>
     );
 };
 

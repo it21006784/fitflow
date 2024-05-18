@@ -47,4 +47,11 @@ public class UserController {
         return userService.getUserById(userId);
     }
 
+    // Add OAuth2 callback endpoint
+    @GetMapping("/oauth2/code/google")
+    public String handleGoogleOAuth2Callback(@RequestParam("code") String code) {
+        // Handle the OAuth2 callback from Google here
+        // You can retrieve the code and exchange it for access token using OAuth2 client
+        return "OAuth2 callback received"; // Placeholder response
+    }
 }

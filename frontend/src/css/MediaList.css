@@ -1,155 +1,26 @@
+/* MediaList.css */
+
 .media-list-container {
     display: flex;
-    flex-wrap: wrap;
-}
-
-/* Style for the media card */
-/* Style for the media card */
-.media-card {
-    margin: 75px auto; /* Adjust margin to center horizontally */
-    padding: 10px;
-    border: 2px solid #d7d3d3;
-    border-radius: 10px;
-    width: 300px;
-    background-color: #ffffff; /* Set background color to white */
-    margin-left: 50px; /* Move the card slightly to the right */
-    
-    
-  }
-  
-  .media-card {
-    margin: 20px auto; /* Center the card */
-    padding: 20px;
-    border: 2px solid #e1e1e1;
-    border-radius: 10px;
-    width: 80%;
-    max-width: 600px;
-    background-color: #ffffff; /* Set background color to white */
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Add shadow */
-}
-.media-description {
-    font-size: 18px;
-    margin-bottom: 10px;
-}
-
-.media-images {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.media-image {
-    width: 100px;
-    height: 100px;
-    object-fit: cover;
-    margin-right: 10px;
-    margin-bottom: 10px;
-}
-
-.media-videos {
-    margin-top: 10px;
-}
-
-.media-video {
-    width: 100%;
-    margin-bottom: 10px;
-}
-/* Style for delete button */
-.delete-button {
-    background-color: #ff4d4d;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 16px;
-    cursor: pointer;
-  }
-  
-  .delete-button:hover {
-    background-color: #cc0000;
-  }
-  
-  /* Style for delete confirmation message */
-  .delete-confirmation {
-    background-color: #f2f2f2;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 20px;
-    margin-top: 10px;
-  }
-  
-  .delete-confirmation p {
-    margin-bottom: 10px;
-  }
-  
-  .delete-confirmation button {
-    background-color: #ff4d4d;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    padding: 8px 16px;
-    cursor: pointer;
-    margin-right: 10px;
-  }
-  
-  .delete-confirmation button:hover {
-    background-color: #cc0000;
-  }
-
-  /* Style for the navbar */
-.item_nav_bar {
-    display: flex;
-    color: white;
-    padding: 10px 20px; /* Adjust padding for better spacing */
-    background-color: #354f52;
-    justify-content: space-between;
-    position: fixed;
-    top: 0;
-    left: 0; /* Align to the top left corner */
-    width: 100%;
-    z-index: 1000;
-  }
-  /* Style for the media card */
-
-
-/* Style for media actions */
-.media-actions {
-    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    justify-content: flex-start;
     align-items: center;
-    margin-top: 10px;
-}
-
-/* Style for action buttons */
-.action-button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    margin-right: 10px;
-    display: flex;
-    align-items: center;
-}
-
-/* Like button */
-.like-button {
-    color: #262626;
-}
-
-/* Comment button */
-.comment-button {
-    color: #262626;
-}
-
-/* Share button */
-.share-button {
-    color: #262626;
-}
-.media-list-container {
-    max-width: 800px;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
+    gap: 20px;
+    overflow-y: auto; /* Make the container scrollable */
+    max-height: 120vh; /* Set a maximum height for the scrollable area */
 }
 
 .media-card {
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    background-color: #f7f3f5;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
+    width: 55%;
+    max-width: 800px; /* Limit the width of the media cards */
     margin-bottom: 20px;
 }
 
@@ -158,46 +29,116 @@
     margin-bottom: 10px;
 }
 
-.media-carousel {
-    margin-top: 20px;
-}
-
-.media-image {
-    max-width: 100%;
-    height: auto;
-}
-
-.media-video {
-    width: 100%;
-    height: auto;
-    margin-top: 10px;
-}
-
 .media-actions {
+    display: flex;
+    gap: 10px;
     margin-top: 10px;
 }
 
 .action-button {
-    margin-right: 10px;
+    background-color: #060809;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.action-button.like-button[liked="true"] {
+    background-color: #884766;
+}
+
+.action-button.comment-button[commented="true"] {
+    background-color: #28a745;
+}
+
+.action-button.share-button {
+    background-color: #060809;
+}
+
+.action-button.edit-button {
+    background-color: #884766;
+}
+
+.action-button:hover {
+    opacity: 0.8;
 }
 
 .delete-button {
-    margin-top: 10px;
     background-color: #dc3545;
-    color: #fff;
+    color: white;
     border: none;
-    padding: 5px 10px;
+    padding: 10px 15px;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-right: 10px; /* Add margin-right to create space */
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    opacity: 0.8;
 }
 
 .delete-confirmation {
-    margin-top: 10px;
-    padding: 10px;
-    border: 1px solid #ccc;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 15px;
     border-radius: 5px;
+    margin-top: 10px;
 }
 
 .delete-confirmation button {
-    margin-right: 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-right: 10px; /* Add margin-right to create space between buttons */
+    transition: background-color 0.3s ease;
+}
+
+.delete-confirmation button:last-child {
+    margin-right: 0; /* Remove margin-right for the last button */
+}
+
+.save-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.save-button:hover {
+    opacity: 0.8;
+}
+
+.media-carousel img,
+.media-carousel video {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+}
+
+.success-message {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 16px;
 }

@@ -3,13 +3,14 @@ import Sidebar from "../components/SideBar";
 import RightSection from "../components/RightSection";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
 import axios from "axios";
+import swal from 'sweetalert'; // Import SweetAlert
 // import UserCheck from "../User/UserCheck";
+import addStatusBG from "../Images/addStatusBG.jpg";
 
 function UpdateWorkoutStatus() {
   const navigate = useNavigate();
   const location = useLocation();
   const { statusId } = useParams();
-
 
   const [workoutStatus, setWorkoutStatus] = useState({
     date: "",
@@ -17,9 +18,7 @@ function UpdateWorkoutStatus() {
     noOfPushups: "",
     weightLifted: "",
     description: "",
-   
   });
-
 
   useEffect(() => {
     fetchWorkoutStatus();
@@ -41,12 +40,22 @@ function UpdateWorkoutStatus() {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:8081/currentStatus/${statusId}`, workoutStatus);
-      alert("Workout Status updated successfully");
-      navigate("/workoutstatusdetails");
+      await axios.put(`http://localhost:8081/currentStatus`, workoutStatus);
+      swal({
+        icon: 'success',
+        title: 'Workout Status updated successfully!',
+        text: 'Your workout status has been updated.',
+        button: 'OK',
+      });
+      navigate("/ViewUserStatus");
     } catch (error) {
       console.error("Error updating workout status:", error);
-      alert("An error occurred while updating the workout status.");
+      swal({
+        icon: 'error',
+        title: 'Error',
+        text: 'An error occurred while updating the workout status.',
+        button: 'OK',
+      });
     }
   };
 
@@ -55,87 +64,98 @@ function UpdateWorkoutStatus() {
     if (confirmDelete) {
       try {
         await axios.delete(`http://localhost:8081/currentStatus/${statusId}`);
-        alert("Workout Status deleted successfully");
-        navigate("/workoutstatusdetails");
+        swal({
+          icon: 'success',
+          title: 'Workout Status deleted successfully!',
+          button: 'OK',
+        });
+        navigate("/ViewUserStatus");
       } catch (error) {
         console.error("Error deleting workout status:", error);
-        alert("An error occurred while deleting the workout status.");
+        swal({
+          icon: 'error',
+          title: 'Error',
+          text: 'An error occurred while deleting the workout status.',
+          button: 'OK',
+        });
       }
     }
   };
 
   return (
+    <div style={{ backgroundColor: "#E6E6EE", height: "785px", width: "1530px", marginTop: "-10px", marginLeft: "10px" }}><br/>
     <div className="container">
       {/* <UserCheck userId={localStorage.getItem("userId")} /> */}
 
       <Sidebar />
-      <div className="form_box">
+
+      <div><h1 className="topic" style={{backgroundColor: "#E6E6EE", marginLeft: "440px"}}>
+            Update Workout Status
+          </h1></div>
+      <div className="form_box" style={{marginLeft: "-350px", backgroundColor: "white", marginTop: "70px"}}>
         <div>
-          <h1 className="topic">
-            Update<span className="topicsub"> Workout Status</span>
-          </h1>
 
           <form onSubmit={onSubmit} className="form_full">
-          <label className="form_lable" htmlFor="date">
-                Date:
+            <label className="form_lable" htmlFor="date">
+              Date:
             </label>
             <br />
             <input
-                onChange={onInputChange}
-                type="date"
-                className="form_input"
-                value={workoutStatus.date}
-                required
-                name="date"
-                placeholder="Enter date"
+              onChange={onInputChange}
+              type="date"
+              className="form_input"
+              value={workoutStatus.date}
+              required
+              name="date"
+              placeholder="Enter date"
             />
             <br />
             <label className="form_lable" htmlFor="distanceRan">
-                Distance Ran:
+              Distance Ran:
             </label>
             <br />
             <input
-                onChange={onInputChange}
-                type="text"
-                className="form_input"
-                value={workoutStatus.distanceRun}
-                name="distanceRan"
-                placeholder="Enter distance ran"
+              onChange={onInputChange}
+              type="text"
+              className="form_input"
+              value={workoutStatus.distanceRun}
+              name="distanceRun"
+              placeholder="Enter distance ran"
             />
             <br />
             <label className="form_lable" htmlFor="numberOfPushupsCompleted">
-                Number of Pushups Completed:
+              Number of Pushups Completed:
             </label>
             <br />
             <input
-                onChange={onInputChange}
-                type="text"
-                className="form_input"
-                value={workoutStatus.noOfPushups}
-                name="numberOfPushupsCompleted"
-                placeholder="Enter number of pushups completed"
+              onChange={onInputChange}
+              type="text"
+              className="form_input"
+              value={workoutStatus.noOfPushups}
+              name="noOfPushups"
+              placeholder="Enter number of pushups completed"
             />
             <br />
             <label className="form_lable" htmlFor="weightLifted">
-                Weight Lifted:
+              Weight Lifted:
             </label>
             <br />
             <input
-                onChange={onInputChange}
-                type="text"
-                className="form_input"
-                value={workoutStatus.weightLifted}
-                name="weightLifted"
-                placeholder="Enter weight lifted"
+              onChange={onInputChange}
+              type="text"
+              className="form_input"
+              value={workoutStatus.weightLifted}
+              name="weightLifted"
+              placeholder="Enter weight lifted"
             />
             <br />
             
             <textarea
-                className="form_input"
-                value={workoutStatus.description}
-                onChange={onInputChange}
-                name="description"
-                placeholder="Enter description"
+              className="form_input"
+              value={workoutStatus.description}
+              onChange={onInputChange}
+              name="description"
+              placeholder="Enter description"
             ></textarea>
             <br />
             <button type="submit" className="update_btn">Update</button>
@@ -145,6 +165,7 @@ function UpdateWorkoutStatus() {
         </div>
       </div>
       <RightSection />
+    </div>
     </div>
   );
 }
