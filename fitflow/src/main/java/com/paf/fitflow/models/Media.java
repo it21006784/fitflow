@@ -31,8 +31,8 @@ public class Media {
     private int likes; 
 
     private List<Comment> comments = new ArrayList<>();
-    private String userId;
-    private String username;
-    private String date;
+    // private String userId;
+    // private String username;
+    // private String date;
 }
 

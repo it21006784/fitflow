@@ -7,13 +7,15 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import '../css/MediaList.css';
 import RightSection from "../components/RightSection";
 import { FaHeart, FaComment, FaEdit, FaShare } from "react-icons/fa";
+import swal from 'sweetalert';
+import { useNavigate } from 'react-router-dom';
 
 const MediaList = () => {
     const [mediaList, setMediaList] = useState([]);
     const [deleteId, setDeleteId] = useState(null);
     const [editedDescription, setEditedDescription] = useState("");
     const [editModeId, setEditModeId] = useState(null);
-    const [successMessage, setSuccessMessage] = useState("");
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function fetchData() {
@@ -22,6 +24,12 @@ const MediaList = () => {
                 setMediaList(response.data);
             } catch (error) {
                 console.error('Error fetching media: ', error);
+                swal({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred while fetching the media list.',
+                    button: 'OK',
+                });
             }
         }
         fetchData();
@@ -31,10 +39,20 @@ const MediaList = () => {
         try {
             await axios.delete(`http://localhost:8081/api/media/${mediaId}`);
             setMediaList(prevMediaList => prevMediaList.filter(media => media.id !== mediaId));
-            setSuccessMessage("Post is deleted successfully");
-            setTimeout(() => setSuccessMessage(""), 3000);
+            swal({
+                icon: 'success',
+                title: 'Post deleted successfully!',
+                button: 'OK',
+            });
+            navigate("/MediaList");
         } catch (error) {
             console.error('Error deleting media: ', error);
+            swal({
+                icon: 'error',
+                title: 'Error',
+                text: 'An error occurred while deleting the post.',
+                button: 'OK',
+            });
         }
     };
 
@@ -64,6 +82,12 @@ const MediaList = () => {
             });
         } catch (error) {
             console.error("Error liking media:", error);
+            swal({
+                icon: 'error',
+                title: 'Error',
+                text: 'An error occurred while liking the post.',
+                button: 'OK',
+            });
         }
     };
 
@@ -88,7 +112,6 @@ const MediaList = () => {
     };
 
     const handleSaveDescription = async (mediaId) => {
-        console.log("Edited description before saving:", editedDescription);
         try {
             await axios.put(`http://localhost:8081/api/media/${mediaId}/description`, null, {
                 params: {
@@ -104,10 +127,20 @@ const MediaList = () => {
                 });
             });
             setEditModeId(null);
-            setSuccessMessage(`Description is edited successfully`);
-            setTimeout(() => setSuccessMessage(""), 3000);
+            swal({
+                icon: 'success',
+                title: 'Description updated successfully!',
+                button: 'OK',
+            });
+            navigate("/MediaList");
         } catch (error) {
             console.error('Error updating description: ', error);
+            swal({
+                icon: 'error',
+                title: 'Error',
+                text: 'An error occurred while updating the description.',
+                button: 'OK',
+            });
         }
     };
 
@@ -117,7 +150,6 @@ const MediaList = () => {
             <div className='displayFit'>
                 <div className="media-list-container">
                     <Sidebar />
-                    {successMessage && <div className="success-message">{successMessage}</div>}
                     {mediaList.map(media => (
                         <div key={media.id} className="media-card">
                             {editModeId === media.id ? (
@@ -145,10 +177,10 @@ const MediaList = () => {
                             <div className="media-actions">
                                 <div className="like-container">
                                     <button className="action-button like-button" onClick={() => handleLike(media.id)}><FaHeart /></button>
-                                    <span className="like-count">{media.likes || 0}</span> {/* Display the like count */}
+                                    <span className="like-count">{media.likes || 0}</span>
                                 </div>
                                 <button className="action-button comment-button" onClick={() => handleComment(media.id)}><FaComment /></button>
-                                <button className="action-button share-button" onClick={() => handleShare(media.id)}><FaShare/></button>
+                                <button className="action-button share-button" onClick={() => handleShare(media.id)}><FaShare /></button>
                                 <button className="action-button edit-button" onClick={() => handleEditDescription(media.id, media.description)}><FaEdit /></button>
                             </div>
                             <button className="delete-button" onClick={() => confirmDelete(media.id)}>Delete</button>
